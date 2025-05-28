@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Coin Calculator";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Optimal Coin Calculator</h1>
+
+    <form method="post" class="row g-3">
+        <div class="col-auto">
+            <input type="number" step="0.01" min="0.01" name="Amount" value="@Model.Amount" class="form-control" placeholder="Enter amount" required />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
+    }
+
+
+    @if (Model.CoinResult != null)
+    {
+        <div class="mt-4">
+            <h2>Coin Breakdown: $@Model.Amount</h2>
+            <ul class="list-group">
+                @foreach (var coin in Model.CoinResult)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @coin.Key
+                        <span class="badge bg-primary rounded-pill">@coin.Value</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
